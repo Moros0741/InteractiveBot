@@ -56,6 +56,10 @@ If its not, you can install it using:
 Once `npm` is installed you can install the database package for the bot which is MongoDB's Mongoose package. To learn more about how to set up your own mongoDB database and Cluster [visit here](https://docs.atlas.mongodb.com/tutorial/create-atlas-account/)
 ```
     $ npm install mongoose -g
+    $ npm install discord.js
+    $ npm install discord-api-types
+    $ npm intall @discordjs/rest
+    $ npm install @discordjs/builders
 ```
 
 ## Cloning the Repository and Editting the config files
