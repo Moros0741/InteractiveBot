@@ -1,0 +1,6 @@
+{
+    "guildId": "your-server-id-here",
+    "clientId": "your-bot-account-id-here",
+    "token": "your-bot-account-token-here",
+    "database_srv": "your-MongoDB-connection-link-here"
+}
