@@ -21,14 +21,18 @@ submit a pull request of your changes and just use your forked repository with c
 Many discord users know about Heroku and the hacks you can use to get a bot running on Heroku. Although this bot would with heroku, albiet with some changes 
 we will not be discussing how to host this repo on Heroku, as that is not Heroku's intended use.
 
-## 1. Obtaining your VPS (Virtual Private Server)
+## Creating & Inviting a Discord Bot account
 
-First things first, we need a VPS to host the code for our bot. You can find cheap VPS's with just a simple google search. Some common VPS Hosting services are: 
+To Create a discord bot account you can visit the tutorial [here](https://discordjs.guide/preparations/setting-up-a-bot-application.html#creating-your-bot). Once you have created your bot account you can learn about inviting it [here](https://discordjs.guide/preparations/adding-your-bot-to-servers.html#creating-and-using-your-invite-link)
+
+## Obtaining your VPS (Virtual Private Server)
+
+Now that you created and invited your bot, we need a VPS to host the code for our bot. You can find cheap VPS's with just a simple google search. Just a few common VPS Hosting services are: 
     - Digital Ocean
     - Vultr
     - GalaxyGate
 
-Once you have decided on your VPS service, Set up your VPS on your host with Ubuntu or Debian OS Linux distro.  You can open your VPS's terminal and run: 
+Once you have decided on your VPS service, Set up your VPS on your host with Ubuntu or Debian OS Linux distro. You can usually find instructions on your host's support sections. Now that you have your host set up you can open your VPS's terminal login to it using the root user and password provided on your VPS's panel, and run: 
 ```
     $ apt update
     $ apt upgrade
@@ -36,30 +40,17 @@ Once you have decided on your VPS service, Set up your VPS on your host with Ubu
 
 ## Installing Requirements & Dependancies
 
-Once you have updated and upgraded the packages on your VPS you can run the following to install Node JS which is required to run the bot.
-```
-    $ apt install nodejs
-```
-Then you can install `npm` which is the package manger for NodeJS. (not sure if it comes with NodeJS. You can check before installing by doing:
-```
-    $ npm --version
-```
-If it is installed it should return a version like: 
-```
-v7.21.0
-```
-If its not, you can install it using: 
+For instructions on how to install NodeJS V16+ on your new VPS [visit here](https://joshtronic.com/2021/05/09/how-to-install-nodejs-16-on-ubuntu-2004-lts/). Once you've installed Node Js you can install `npm` which is NodeJS package manager.
 ```
     $ apt install npm
 ```
 
-Once `npm` is installed you can install the database package for the bot which is MongoDB's Mongoose package. To learn more about how to set up your own mongoDB database and Cluster [visit here](https://docs.atlas.mongodb.com/tutorial/create-atlas-account/)
+Once `npm` is installed you can install the database package for the bot which is MongoDB's Mongoose package as well as Discordjs and their sub packages. To learn more about how to set up your own mongoDB database and Cluster [visit here](https://docs.atlas.mongodb.com/tutorial/create-atlas-account/)
 ```
     $ npm install mongoose -g
-    $ npm install discord.js
-    $ npm install discord-api-types
-    $ npm intall @discordjs/rest
-    $ npm install @discordjs/builders
+```
+```
+    $ npm install discord.js discord-api-types @discordjs/rest
 ```
 
 ## Cloning the Repository and Editting the config files
