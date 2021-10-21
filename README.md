@@ -57,7 +57,7 @@ Once `npm` is installed you can install the database package for the bot which i
 
 Once you have completed the steps above you are ready to clone the repository. Enter the following into your command line on the terminal of your VPS:
 ```
-    $ git clone https://github.com/Moros0741/InteractiveBot/
+    $ git clone https://github.com/Moros0741/InteractiveBot.git
     $ cd InteractiveBot
 ```
 if you don't have git on your VPS you can install it using `apt install git`. 
