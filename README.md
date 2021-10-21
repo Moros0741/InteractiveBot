@@ -29,13 +29,13 @@ First things first, we need a VPS to host the code for our bot. You can find che
     - GalaxyGate
 
 Once you have decided on your VPS service, Set up your VPS on your host with Ubuntu or Debian OS Linux distro.  You can open your VPS's terminal and run: 
-    ```bash
+    ```
     $ apt update
     $ apt upgrade
     ```
 
 Once you have updated and upgraded the packages on your VPS you can run: 
-    ```bash
+    ```
     $ apt install nodejs
     $ apt install npm
     ```
