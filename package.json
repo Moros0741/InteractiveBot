@@ -1,13 +1,16 @@
 {
-  "name": "InteractiveBot",
-  "description": "Add, Remove or View keywords for specific channels that users can trigger to gain a role and lose a role. For Escape Room like Discord Servers.",
-  "author": {
-     "name": "Moros0741",
-     "url": "https://github.com/Moros0741/"
-  },
-  "requirements": {
-    "mongoose": ">=6.0.11",
-    "NodeJS": ">=16.8.0",
-    "npm": ">=7.21.0"
-  }
+    "name": "interactive_bot",
+    "description": "Add, Remove or View keywords for specific channels that users can trigger to gain a role and lose a role. For Escape Room like Discord Servers.",
+    "author": {
+        "name": "Moros0741",
+        "url": "https://github.com/Moros0741/"
+    },
+    "requirements": {
+        "NodeJS": "16.8.0",
+        "npm": "7.21.0"
+    },
+    "dependencies": {
+        "mongoose": ">=6.0.11"
+    },
+    "run": "npm install mongoose -g"
 }
