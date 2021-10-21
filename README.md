@@ -53,6 +53,35 @@ Once `npm` is installed you can install the database package for the bot which i
     $ npm install discord.js discord-api-types @discordjs/rest
 ```
 
-## Cloning the Repository and Editting the config files
+## Cloning the Repository
 
-Once you have completed the above steps you can clone this repository and edit the `config.json` file to your bot account and server's information. If you don't know how to create a bot account [visit here](https://discordjs.guide/preparations/setting-up-a-bot-application.html#creating-your-bot). Once you have created your bot account you will need to invite it to your server. You can learn about invites [here](https://discordjs.guide/preparations/adding-your-bot-to-servers.html#creating-and-using-your-invite-link)
+Once you have completed the steps above you are ready to clone the repository. Enter the following into your command line on the terminal of your VPS:
+```
+    $ git clone https://github.com/Moros0741/InteractiveBot/
+    $ cd InteractiveBot
+```
+if you don't have git on your VPS you can install it using `apt install git`. 
+
+## Editing config files
+
+Now that you have cloned the repository you can edit the configuration files. 
+
+run: 
+``` 
+    $ cd data
+```
+to open the data directory where the bots `config.json` file is. Open up the file by typing:
+```
+$ nano example.config.json
+```
+
+The contents of the file should look something like this: 
+```
+{
+    "clientId": "your-bot-account-id",
+    "guildId": "your-server-id-here",
+    "token": "Your-bot-token-here",
+    "database_srv": "Your-mongo-database-uri-here",
+}
+```
+
