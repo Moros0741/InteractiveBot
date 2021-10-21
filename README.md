@@ -34,9 +34,30 @@ Once you have decided on your VPS service, Set up your VPS on your host with Ubu
     $ apt upgrade
 ```
 
-Once you have updated and upgraded the packages on your VPS you can run: 
+## Installing Requirements & Dependancies
+
+Once you have updated and upgraded the packages on your VPS you can run the following to install Node JS which is required to run the bot.
 ```
     $ apt install nodejs
+```
+Then you can install `npm` which is the package manger for NodeJS. (not sure if it comes with NodeJS. You can check before installing by doing:
+```
+    $ npm --version
+```
+If it is installed it should return a version like: 
+```
+v7.21.0
+```
+If its not, you can install it using: 
+```
     $ apt install npm
 ```
 
+Once `npm` is installed you can install the database package for the bot which is MongoDB's Mongoose package. To learn more about how to set up your own mongoDB database and Cluster [visit here](https://docs.atlas.mongodb.com/tutorial/create-atlas-account/)
+```
+    $ npm install mongoose -g
+```
+
+## Cloning the Repository and Editting the config files
+
+Once you have completed the above steps you can clone this repository and edit the `config.json` file to your bot account and server's information. If you don't know how to create a bot account [visit here](https://discordjs.guide/preparations/setting-up-a-bot-application.html#creating-your-bot). Once you have created your bot account you will need to invite it to your server. You can learn about invites [here](https://discordjs.guide/preparations/adding-your-bot-to-servers.html#creating-and-using-your-invite-link)
