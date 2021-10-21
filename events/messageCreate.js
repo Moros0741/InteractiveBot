@@ -1,32 +1,46 @@
-const { MessageEmbed, Interaction } = require('discord.js');
+/*
+The messageCreate event listens to any messages sent that are 
+initiated from the  Discord Client Application and checks for 
+the trigger word(s) of the channel the message is sent in. If no 
+trigger is set, it returns to waiting quietly. 
+
+-------------- DO NOT EDIT BELOW THIS LINE -------------------*/
+
+const { MessageEmbed, Interaction, MessageManager } = require('discord.js');
 const guildSchema = require('../models/guildSchema')
-const userSchema = require('../models/userSchema')
 
 module.exports = {
     name: "messageCreate",
     once: false,
     async execute(message) {
-        let guildProfile = await guildSchema.findOne({"guildID": message.guild.id});
-        let channelData = guildProfile.channelData.find(channelData => channelData.channel === message.channel.id)
-        
-        if (!channelData || message.author.bot) return;
-
-        if (!channelData.keywords.includes(message.content)) {
-            try {
-                await message.delete();
-            } catch (err) {
-                console.error(err)
+        let guildProfile = await guildSchema.findOne({ "guildID": message.guild.id });
+        let channelTriggers;
+        try {
+            let triggers = [];
+            for (trigg of guildProfile.triggers) {
+                if (trigg.channel === message.channel.id) {
+                    triggers.push(trigg);
+                }
             }
-        } else {
-            try {
-                let member = message.guild.members.cache.find(member => member.id === message.author.id)
+            channelTriggers = triggers;
+        } catch (err) {
+            console.error(err);
+        }
 
-                await member.roles.add(channelData.roleAdd)
-                await member.roles.remove(channelData.roleRemove)
-                return message.delete();
-            } catch (err) {
-                console.error(err)
+        if (!channelTriggers || message.author.bot) return;
+
+        for (channelTrigg of channelTriggers) {
+            if (channelTrigg.keyword.toLowerCase() === message.content.toLowerCase()) {
+                try {
+                    let member = message.guild.members.cache.find(member => member.id === message.author.id)
+
+                    await member.roles.add(channelTrigg.roleAdd)
+                    await member.roles.remove(channelTrigg.roleRemove)
+                } catch (err) {
+                    console.error(err)
+                }
             }
         }
+        return message.delete();
     },
 };
