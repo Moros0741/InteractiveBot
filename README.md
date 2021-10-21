@@ -84,4 +84,50 @@ The contents of the file should look something like this:
     "database_srv": "Your-mongo-database-uri-here",
 }
 ```
+Replace the contents with their appropriate values, When you are done your `config.json` file should look something like this:
 
+```
+{
+    "clientId": "900888924287807528",
+    "guildId: "756401202434015232",
+    "token": "OTAwODg4OTI0Mjg3ODA3NTI4.YXH4MQ.9snDXvaILf9h5e7wgegAy7nCXLI",
+    "database_srv": "mongodb+srv://<USER>:<PASSWORD>@shard-01.fw9fd.mongodb.net/YOUR-DATABASE-NAME?retryWrites=true&w=majority"
+}
+```
+
+You will need to get your `database_srv` from your MongoDB account when you press `CONNECT` to your Database. Make sure you add a User to the Database Access tab, you will need to for editing your database_srv. To edit the SRV do the following:
+
+1. Replace `<USER>` with the user name of the User you created in Database Access Tab.
+2. Replace `<PASSWORD>` with the password you created/generated for that User.
+3. Replace `YOUR-DATABASE-NAME` with the name of your database. This will be the name directly to the left of the connect button we spoke about earlier. Once you've made those changes you can press `ctrl + X` and type in the new files name: `config.json` and hit enter to save it. 
+
+## Turning on your bot 
+
+If you do not want to use a process manager like PM2 you can just deploy your bot directly from your command line in the VPS terminal. Make sure you are in your bots main directory (this is the folder that contains the `deploy-commands.js` and `index.js` files). We left off in the `/data` directory of your bots files. To go back to your bots main directory run:
+```
+    $ cd ..
+```
+this will bring you back one folder in your files. from there you can run two commands to start your bot. 
+
+First We need to deploy the slash commands to your server for the bot.
+```
+    $ node deploy-commands.js
+```
+You should receive a return that says "Slash Command Successfully registered". If you received that you can go ahead and start the bot. To start it you just need to run: 
+```
+    $ node index.js
+```
+You should receive an output saying:
+
+```
+YourBot#0000 has connected to discord with ID: your-bot-id.
+Connected to MongoDB/database
+```
+
+If you have any further questions or issues, feel free to open an issue or discussion on this repo and i or another developer can talk you through any issues or get any bugs fixed for you. 
+
+### Sorry for the confusing instructions
+
+As you can probably tell, writing is not my strong suit. If you think you can explain it better I welcome any changes and contributions to the repo whether thats code wise, or instructions wise. Just create a fork and edit it how you think would be best. Create a pull request and I will review it and discuss any changes and additions needed. Again thanks for you interest in this bot. 
+
+    ~ Moros#0741
