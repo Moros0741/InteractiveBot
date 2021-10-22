@@ -18,8 +18,7 @@ submit a pull request of your changes and just use your forked repository with c
 
 # Self - Hosting Instructions and Set up. 
 
-Many discord users know about Heroku and the hacks you can use to get a bot running on Heroku. Although this bot would with heroku, albiet with some changes 
-we will not be discussing how to host this repo on Heroku, as that is not Heroku's intended use.
+Many discord users know about Heroku and the hacks you can use to get a bot running on Heroku. Although this bot would work with heroku, albiet with some changes we will not be discussing how to host this repo on Heroku, as that is not Heroku's intended use.
 
 ## Creating & Inviting a Discord Bot account
 
