@@ -35,9 +35,15 @@ mongoose.connect(database_srv, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
-    console.log('Connected to MongoDB/BrandiBot/Bot01');
+    console.log('Connected to MongoDB/Database');
 }).catch((err) => {
     console.error(err.message)
 });
 
-client.login(token);
+try {
+    client.login(token);
+} catch (err) {
+    console.error(
+        "Failed to login to discord. This is usually because of an invalid TOKEN. Please double check that you have the correct token in 'data/config.json'"
+    );
+}
