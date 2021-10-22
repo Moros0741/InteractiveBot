@@ -27,9 +27,9 @@ To Create a discord bot account you can visit the tutorial [here](https://discor
 ## Obtaining your VPS (Virtual Private Server)
 
 Now that you created and invited your bot, we need a VPS to host the code for our bot. You can find cheap VPS's with just a simple google search. Just a few common VPS Hosting services are: 
-    - Digital Ocean
-    - Vultr
-    - GalaxyGate
+1. Digital Ocean
+2. Vultr
+3. GalaxyGate
 
 Once you have decided on your VPS service, Set up your VPS on your host with Ubuntu or Debian OS Linux distro. You can usually find instructions on your host's support sections. Now that you have your host set up you can open your VPS's terminal login to it using the root user and password provided on your VPS's panel, and run: 
 ```
