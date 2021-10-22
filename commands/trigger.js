@@ -1,5 +1,5 @@
 /*
-The triggers.js command below allows for easy updating of the 
+The triggers command below allows for easy updating of the 
 database. You can add, remove, or view triggers for a channel
 or the entire server.
 
