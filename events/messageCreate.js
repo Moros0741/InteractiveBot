@@ -8,6 +8,7 @@ trigger is set, it returns to waiting quietly.
 
 const { MessageEmbed, Interaction, MessageManager } = require('discord.js');
 const guildSchema = require('../models/guildSchema')
+const logs = require('../modules/logging');
 
 module.exports = {
     name: "messageCreate",
@@ -35,8 +36,16 @@ module.exports = {
                     try {
                         let member = message.guild.members.cache.find(member => member.id === message.author.id)
 
-                        await member.roles.add(channelTrigg.roleAdd)
-                        await member.roles.remove(channelTrigg.roleRemove)
+                        if (channelTrigg.removeRoles.length > 0) {
+                            await member.roles.remove(channelTrigg.removeRoles);
+                        };
+
+                        if (channelTrigg.addRoles.length > 0) {
+                            await member.roles.add(channelTrigg.addRoles);
+                        };
+                        if (guildProfile.logging.isActive === true) {
+                            await logs.send(message, guildProfile.logging.channel, channelTrigg);
+                        }
                     } catch (err) {
                         console.error(err)
                     }
