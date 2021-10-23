@@ -6,7 +6,8 @@ or the entire server.
 -------------- DO NOT EDIT BELOW THIS LINE ----------------*/
 
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed, Permissions } = require('discord.js')
+const { MessageEmbed, Permissions } = require('discord.js');
+const helper = require('../modules/helper');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -19,6 +20,7 @@ module.exports = {
             .addChoice('Add', 'add')
             .addChoice('Remove', "remove")
             .addChoice('View', 'view')
+            .addChoice('Clear', 'clear')
         )
         .addChannelOption(option =>
             option.setName('channel')
@@ -94,7 +96,7 @@ module.exports = {
                             embeds: [embed],
                             ephemeral: true
                         });
-                    } else if (guildProfile.triggers.length < 25) {
+                    } else if (guildProfile.triggers.length < 9) {
                         let embed = new MessageEmbed()
                             .setTitle(`Triggers for ${interaction.guild.name}`)
                             .setDescription("All active triggers are listed below")
@@ -109,6 +111,8 @@ module.exports = {
                             embeds: [embed],
                             ephemeral: true
                         });
+                    } else if (guildProfile.triggers.length > 9) {
+                        await helper.displayAllTriggers(interaction, guildProfile.triggers);
                     }
                 } else {
                     let embed = new MessageEmbed()
@@ -128,6 +132,8 @@ module.exports = {
                         ephemeral: true
                     });
                 }
+            } else if (action === 'clear') {
+                await helper.clearAllTriggers(interaction, guildProfile);
             }
         }
     },
