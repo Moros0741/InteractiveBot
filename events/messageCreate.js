@@ -26,21 +26,23 @@ module.exports = {
         } catch (err) {
             console.error(err);
         }
+        if (channelTriggers.length === 0 || message.author.bot) {
+            return
+        } else {
 
-        if (!channelTriggers || message.author.bot) return;
+            for (channelTrigg of channelTriggers) {
+                if (channelTrigg.keyword.toLowerCase() === message.content.toLowerCase()) {
+                    try {
+                        let member = message.guild.members.cache.find(member => member.id === message.author.id)
 
-        for (channelTrigg of channelTriggers) {
-            if (channelTrigg.keyword.toLowerCase() === message.content.toLowerCase()) {
-                try {
-                    let member = message.guild.members.cache.find(member => member.id === message.author.id)
-
-                    await member.roles.add(channelTrigg.roleAdd)
-                    await member.roles.remove(channelTrigg.roleRemove)
-                } catch (err) {
-                    console.error(err)
+                        await member.roles.add(channelTrigg.roleAdd)
+                        await member.roles.remove(channelTrigg.roleRemove)
+                    } catch (err) {
+                        console.error(err)
+                    }
                 }
             }
+            return message.delete();
         }
-        return message.delete();
     },
 };
