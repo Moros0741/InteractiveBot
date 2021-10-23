@@ -1,5 +1,6 @@
 const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 const guildSchema = require('../models/guildSchema');
+const random = require('../modules/random');
 
 exports.displayAllTriggers = async function(interaction, triggers) {
     let totalPages = Math.floor(triggers.length / 9);
@@ -31,7 +32,9 @@ exports.displayAllTriggers = async function(interaction, triggers) {
     let v = 0
     for (pag of pages) {
         for (cTrigg of cTriggers[v]) {
-            pag.addField(`\` Keyword: ${cTrigg.keyword}\``, `**Channel:** <#${cTrigg.channel}> \n**RoleRemove:** <@&${cTrigg.roleRemove}> \n**RoleAdd:** <@&${cTrigg.roleAdd}>`, true)
+            let removeRolesArray = Array(cTrigg.removeRoles.map(role => `<@&${role}>`));
+            let addRolesArray = Array(cTrigg.addRoles.map(role => `<@&${role}>`));
+            pag.addField(`ID #\`${cTrigg.triggerID}\` | \`${cTrigg.keyword}\``, `**Channel:** <#${cTrigg.channel}> \n**RoleRemove:** ${removeRolesArray.join(', ')} \n**RoleAdd:** ${addRolesArray.join(', ')}`, true)
         }
         v++
     }
@@ -144,4 +147,23 @@ exports.clearAllTriggers = async function(interaction, guildProfile) {
         return
     });
 
-}
+};
+
+exports.getTriggerId = function(guildProfile) {
+    function getNumber() {
+        let number = random.range(1000, 9999);
+        let IDNumber = checkNumber(number);
+        return IDNumber
+    };
+
+    function checkNumber(number) {
+        if (guildProfile.triggerIds.includes(number)) {
+            let number = getNumber()
+            return number
+        } else {
+            return number
+        }
+    }
+    let triggerID = getNumber()
+    return Number(triggerID)
+};

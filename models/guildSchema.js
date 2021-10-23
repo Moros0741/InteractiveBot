@@ -9,13 +9,18 @@ const mongoose = require('mongoose')
 
 const guildSchema = new mongoose.Schema({
     guildID: String,
+    triggerIds: [],
     botManagers: [{ userID: String, permissions: [] }],
-    logChannel: String,
+    logging: {
+        isActive: { type: Boolean, defualt: false },
+        channel: String,
+    },
     triggers: [{
+        triggerID: Number,
         channel: String,
         keyword: String,
-        roleRemove: String,
-        roleAdd: String
+        removeRoles: { type: Array, default: undefined },
+        addRoles: { type: Array, default: undefined }
     }]
 });
 

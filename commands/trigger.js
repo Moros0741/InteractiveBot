@@ -56,11 +56,16 @@ module.exports = {
             let action = interaction.options.getString('action');
 
             if (action === 'add') {
+                let triggerID = helper.getTriggerId(guildProfile);
+                let removeRoles = Array(roleToRemove.id);
+                let addRoles = Array(roleToAdd.id);
+                guildProfile.triggerIds.push(triggerID)
                 guildProfile.triggers.push({
+                    triggerID: triggerID,
                     channel: channel.id,
                     keyword: trigger.toLowerCase(),
-                    roleRemove: roleToRemove.id,
-                    roleAdd: roleToAdd.id
+                    removeRoles: removeRoles,
+                    addRoles: addRoles
                 });
                 try {
                     guildProfile.save();
@@ -68,7 +73,7 @@ module.exports = {
                     console.error(err)
                 }
                 return interaction.reply({
-                    content: `Added Trigger \`${trigger.toLowerCase()}\` to channel: ${channel.toString()}`,
+                    content: `Added Trigger \`${trigger.toLowerCase()}\` to channel: ${channel.toString()} with id: \`${triggerID}\``,
                     ephemeral: true
                 });
             } else if (action === "remove") {
@@ -101,9 +106,12 @@ module.exports = {
                             .setTitle(`Triggers for ${interaction.guild.name}`)
                             .setDescription("All active triggers are listed below")
                         for (trigger of guildProfile.triggers) {
+                            let removeRolesArray = Array(trigger.removeRoles.map(role => `<@&${role}>`));
+                            let addRolesArray = Array(trigger.addRoles.map(role => `<@&${role}>`));
+
                             embed.addField(
-                                "\u200b",
-                                `**Keyword:** \`${trigger.keyword}\` \n**Channel:** <#${trigger.channel}> \n**RoleRemove:** <@&${trigger.roleRemove}> \n**RoleAdd:** <@&${trigger.roleAdd}>`,
+                                `ID #\`${trigger.triggerID}\``,
+                                `**Keyword:** \`${trigger.keyword}\` \n**Channel:** <#${trigger.channel}> \n**RoleRemove:** ${removeRolesArray.join(", ")} \n**RoleAdd:** ${addRolesArray.join(', ')}`,
                                 true
                             )
                         }
@@ -120,9 +128,11 @@ module.exports = {
                         .setDescription("All active triggers for the mentioned channel.")
                     for (trigg of guildProfile.triggers) {
                         if (trigg.channel === channel.id) {
+                            let removeRolesArray = Array(trigg.removeRoles.map(role => `<@&${role}>`));
+                            let addRolesArray = Array(trigg.addRoles.map(role => `<@&${role}>`));
                             embed.addField(
-                                "\u200b",
-                                `**Keyword:** \`${trigg.keyword}\` \n**RoleRemove:** <@&${trigg.roleRemove}> \n**RoleAdd:** <@&${trigg.roleAdd}>`,
+                                `ID #\`${trigg.triggerID}\``,
+                                `**Keyword:** \`${trigg.keyword}\` \n**RoleRemove:** ${removeRolesArray.join(', ')} \n**RoleAdd:** ${addRolesArray.join(', ')}`,
                                 true
                             )
                         }
