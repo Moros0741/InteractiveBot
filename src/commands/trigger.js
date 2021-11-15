@@ -57,8 +57,8 @@ module.exports = {
 
             if (action === 'add') {
                 let triggerID = helper.getTriggerId(guildProfile);
-                let removeRoles = Array(roleToRemove.id);
-                let addRoles = Array(roleToAdd.id);
+                let removeRoles = Array(roleToRemove.id) || Array();
+                let addRoles = Array(roleToAdd.id) || Array();
                 guildProfile.triggerIds.push(triggerID)
                 guildProfile.triggers.push({
                     triggerID: triggerID,
