@@ -15,6 +15,10 @@ const guildSchema = new mongoose.Schema({
         isActive: { type: Boolean, defualt: false },
         channel: String,
     },
+    startSystem: {
+        role: String,
+        channel: { type: String, default: undefined }
+    },
     triggers: [{
         triggerID: Number,
         channel: String,
