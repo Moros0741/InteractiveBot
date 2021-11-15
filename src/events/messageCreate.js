@@ -36,11 +36,11 @@ module.exports = {
                     try {
                         let member = message.guild.members.cache.find(member => member.id === message.author.id)
 
-                        if (channelTrigg.removeRoles.length > 0) {
+                        if (channelTrigg.removeRoles) {
                             await member.roles.remove(channelTrigg.removeRoles);
                         };
 
-                        if (channelTrigg.addRoles.length > 0) {
+                        if (channelTrigg.addRoles) {
                             await member.roles.add(channelTrigg.addRoles);
                         };
                         if (guildProfile.logging.isActive === true) {

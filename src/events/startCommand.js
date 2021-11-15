@@ -19,7 +19,7 @@ module.exports = {
                     guildID: message.guild.id
                 });
                 newProfile.save();
-                return message.reply("You have nothing setup. Please run the slash commands provided to setup of this bot.");
+                return message.reply("Please run the slash commands provided to set up this bot.");
             } catch (err) {
                 console.error(err);
             }
@@ -45,8 +45,11 @@ module.exports = {
 
         await member.roles.add(startSystem.role)
 
-        if (startSystem.channel != undefined) {
-            await logs.sendStart(message, startSystem.channel);
+        if (startSystem.role != undefined) {
+            if (guildProfile.logging.isActive && guildProfile.logging.channel != undefined) {
+                let logChannel = guildProfile.logging.channel
+                await logs.sendStart(message, logChannel);
+            }
         }
         return message.delete();
     }

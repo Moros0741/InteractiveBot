@@ -8,7 +8,7 @@ file. Otherwise the commands will not register in your server.
 const fs = require('fs');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
-const { clientId, token } = require('./data/config.json');
+const { clientId, guildId, token } = require('./data/config.json');
 
 const commands = [];
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));

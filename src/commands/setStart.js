@@ -39,7 +39,7 @@ module.exports = {
                 guildProfile.save();
 
                 return interaction.reply({
-                    content: `Start role has been set to: ${role.toString()}. Any member that uses \`!start\` whill be granted this role.`,
+                    content: `Start role has been set to: ${role.toString()}. Any member that uses \`!start\` will be granted this role.`,
                     ephemeral: true
                 });
             } else if (action === 'set-log') {
@@ -54,7 +54,7 @@ module.exports = {
                 guildProfile.startSystem.channel = channel.id
                 guildProfile.save();
                 return interaction.reply({
-                    content: `Starter System Set up, Successfully! All users that use the \`!start\``,
+                    content: `Starter System Set up, Successfully! All users that use the \`!start\` will be given ${role.toString()} & uses will be logged in ${channel.toString()}`,
                     ephemeral: true
                 });
             }
