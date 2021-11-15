@@ -6,8 +6,8 @@
         "url": "https://github.com/Moros0741/"
     },
     "requirements": {
-        "NodeJS": "16.8.0",
-        "npm": "7.21.0"
+        "NodeJS": ">=16.8.0",
+        "npm": ">=7.21.0"
     },
     "dependencies": {
         "mongoose": ">=6.0.11",
