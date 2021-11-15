@@ -4,10 +4,10 @@ access data. This is critical for ALL code to run in this bot.
 
 -------------- DO NOT CHANGE BELOW THIS LINE -------------------
 */
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const mongoose = require('mongoose')
-
-const guildSchema = new mongoose.Schema({
+const guildSchema = new Schema({
     guildID: String,
     triggerIds: [],
     botManagers: [{ userID: String, permissions: [] }],
@@ -17,7 +17,7 @@ const guildSchema = new mongoose.Schema({
     },
     startSystem: {
         role: String,
-        channel: { type: String, default: undefined }
+        channel: String
     },
     triggers: [{
         triggerID: Number,

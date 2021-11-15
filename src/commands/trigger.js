@@ -57,20 +57,48 @@ module.exports = {
 
             if (action === 'add') {
                 let triggerID = helper.getTriggerId(guildProfile);
-                let removeRoles = Array(roleToRemove.id) || Array();
-                let addRoles = Array(roleToAdd.id) || Array();
                 guildProfile.triggerIds.push(triggerID)
-                guildProfile.triggers.push({
-                    triggerID: triggerID,
-                    channel: channel.id,
-                    keyword: trigger.toLowerCase(),
-                    removeRoles: removeRoles,
-                    addRoles: addRoles
-                });
-                try {
-                    guildProfile.save();
-                } catch (err) {
-                    console.error(err)
+                if (roleToAdd === null) {
+                    let removeRoles = new Array(roleToRemove.id);
+                    guildProfile.triggers.push({
+                        triggerID: triggerID,
+                        channel: channel.id,
+                        keyword: trigger.toLowerCase(),
+                        removeRoles: removeRoles,
+                    });
+                    try {
+                        guildProfile.save();
+                    } catch (err) {
+                        console.error(err);
+                    }
+                } else if (roleToRemove === null) {
+                    let addRoles = new Array(roleToAdd.id);
+                    guildProfile.triggers.push({
+                        triggerID: triggerID,
+                        channel: channel.id,
+                        keyword: trigger.toLowerCase(),
+                        addRoles: addRoles,
+                    });
+                    try {
+                        guildProfile.save();
+                    } catch (err) {
+                        console.error(err);
+                    }
+                } else {
+                    let removeRoles = Array(roleToRemove.id) || undefined;
+                    let addRoles = Array(roleToAdd.id) || undefined;
+                    guildProfile.triggers.push({
+                        triggerID: triggerID,
+                        channel: channel.id,
+                        keyword: trigger.toLowerCase(),
+                        removeRoles: removeRoles,
+                        addRoles: addRoles
+                    });
+                    try {
+                        guildProfile.save();
+                    } catch (err) {
+                        console.error(err)
+                    }
                 }
                 return interaction.reply({
                     content: `Added Trigger \`${trigger.toLowerCase()}\` to channel: ${channel.toString()} with id: \`${triggerID}\``,
@@ -106,12 +134,23 @@ module.exports = {
                             .setTitle(`Triggers for ${interaction.guild.name}`)
                             .setDescription("All active triggers are listed below")
                         for (trigger of guildProfile.triggers) {
-                            let removeRolesArray = Array(trigger.removeRoles.map(role => `<@&${role}>`));
-                            let addRolesArray = Array(trigger.addRoles.map(role => `<@&${role}>`));
-
+                            let removeRolesArray;
+                            let addRolesArray
+                            if (trigger.removeRoles === undefined) {
+                                removeRolesArray = "none"
+                            } else {
+                                let rolesArr = new Array(trigger.removeRoles.map(role => `<@&${role}>`));
+                                removeRolesArray = rolesArr.join(', ');
+                            }
+                            if (trigger.addRoles === undefined) {
+                                addRolesArray = "None"
+                            } else {
+                                let rolesArr = new Array(trigger.addRoles.map(role => `<@&${role}>`));
+                                addRolesArray = rolesArr.join(', ');
+                            }
                             embed.addField(
                                 `ID #\`${trigger.triggerID}\``,
-                                `**Keyword:** \`${trigger.keyword}\` \n**Channel:** <#${trigger.channel}> \n**RoleRemove:** ${removeRolesArray.join(", ")} \n**RoleAdd:** ${addRolesArray.join(', ')}`,
+                                `**Keyword:** \`${trigger.keyword}\` \n**Channel:** <#${trigger.channel}> \n**RoleRemove:** ${removeRolesArray} \n**RoleAdd:** ${addRolesArray}`,
                                 true
                             )
                         }
@@ -128,11 +167,23 @@ module.exports = {
                         .setDescription("All active triggers for the mentioned channel.")
                     for (trigg of guildProfile.triggers) {
                         if (trigg.channel === channel.id) {
-                            let removeRolesArray = Array(trigg.removeRoles.map(role => `<@&${role}>`));
-                            let addRolesArray = Array(trigg.addRoles.map(role => `<@&${role}>`));
+                            let removeRolesArray;
+                            if (trigg.removeRoles === undefined) {
+                                removeRolesArray = "None";
+                            } else {
+                                let rolesArr = Array(trigg.removeRoles.map(role => `<@&${role}>`));
+                                removeRolesArray = rolesArr.join(', ');
+                            }
+                            let addRolesArray;
+                            if (trigg.addRoles === undefined) {
+                                addRolesArray = "None";
+                            } else {
+                                let rolesArr = Array(trigg.addRoles.map(role => `<@&${role}>`));
+                                addRolesArray = rolesArr.join(', ');
+                            }
                             embed.addField(
                                 `ID #\`${trigg.triggerID}\``,
-                                `**Keyword:** \`${trigg.keyword}\` \n**RoleRemove:** ${removeRolesArray.join(', ')} \n**RoleAdd:** ${addRolesArray.join(', ')}`,
+                                `**Keyword:** \`${trigg.keyword}\` \n**RoleRemove:** ${removeRolesArray} \n**RoleAdd:** ${addRolesArray}`,
                                 true
                             )
                         }
